@@ -1,0 +1,53 @@
+﻿@using NodeTree.Domain
+@model Nodes
+@{
+    ViewBag.Title = "Details";
+}
+<h2>Node Details</h2>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Node</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.NodeName)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NodeName)
+            </dd>
+
+            <dt class="col-sm-2">
+                Parent Node
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.ParentNodeId == 0)
+                {
+                    @Html.DisplayFor(model => model.ParentNodeId)
+                }
+                else
+                {
+                    @ViewBag.ParentNodeName
+                }
+            </dd>
+
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.IsActive)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.IsActive)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.StartDate)
+            </dt>
+            <dd class="col-sm-10">
+                @ViewBag.StartDate
+            </dd>
+        </dl>
+    </div>
+</div>
+
+<div class="mt-3">
+    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model.NodeId">Edit</a>
+    <a class="btn btn-secondary" asp-action="List">Back to List</a>
+</div>

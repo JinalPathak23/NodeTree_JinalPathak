@@ -1,0 +1,69 @@
+﻿@model List<NodeViewModel>
+@{
+    ViewBag.Title = "Nodes";
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" />
+
+<h2>List of Nodes</h2>
+<div class="card-upper">
+    <div class="header-title">
+        <div class="addLink-wrapper">
+            <a asp-action="Create" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add New Node
+            </a>
+        </div>
+    </div>
+</div>
+<br />
+<div class="card customize-page bshadow">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Node Name</th>
+                        <th>Parent Node Name</th>
+                        <th>Is Active</th>
+                        <th>Start Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.NodeName</td>
+                            <td>@item.ParentNodeName</td>
+                            <td>
+
+                            <input type="checkbox" name="checkbox_activity_types" class="enable-checkbox" disabled value="@item.IsActive" @(item.IsActive ? "checked" : "") />
+                            </td>
+                            <td>@item.StartDate.ToString("yyyy-MM-dd")</td>
+                            <td>
+                                <a href="@Url.Action("Details", "Nodes", new { id = item.NodeId })" class="btn btn-info btn-sm">Details</a>
+                                <a href="@Url.Action("Edit", "Nodes", new { id = item.NodeId })" class="btn btn-primary btn-sm">Edit</a>
+                                <button type="button" onclick="confirmDelete('@item.NodeId')" class="btn btn-danger btn-sm">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function confirmDelete(nodeId) {
+            if (confirm('Are you sure you want to delete this node?')) {
+                window.location.href = '@Url.Action("Delete", "Nodes")?id=' + nodeId;
+            }
+        }
+    </script>
+}

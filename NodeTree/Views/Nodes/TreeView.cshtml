@@ -1,0 +1,63 @@
+﻿@model List<NodeViewModel>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* Style the caret (caret-down) */
+        .caret {
+            cursor: pointer;
+            user-select: none; /* Prevent text selection */
+        }
+
+            /* Caret down icon */
+            .caret::before {
+                content: "\25B6"; /* Unicode character for right arrow */
+                color: black;
+                display: inline-block;
+                margin-right: 6px;
+            }
+
+        /* Rotate the caret icon when active */
+        .caret-down::before {
+            transform: rotate(90deg);
+        }
+
+        /* Hide nested ul by default */
+        .nested {
+            display: none;
+        }
+
+        /* Show nested ul when active */
+        .active {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>Tree View</h2>
+
+    <ul id="myUL">
+        @foreach (var node in Model)
+        {
+            @await Html.PartialAsync("_TreeNode", node)
+        }
+    </ul>
+
+    <script>
+        var toggler = document.getElementsByClassName("caret");
+        var i;
+
+        for (i = 0; i < toggler.length; i++) {
+            toggler[i].addEventListener("click", function () {
+                this.parentElement.querySelector(".nested").classList.toggle("active");
+                this.classList.toggle("caret-down");
+            });
+        }
+    </script>
+
+</body>
+</html>

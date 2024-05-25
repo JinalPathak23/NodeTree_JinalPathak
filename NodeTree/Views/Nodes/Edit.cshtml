@@ -1,0 +1,54 @@
+﻿@model NodeViewModel
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit Node</h2>
+
+<div class="card">
+    <div class="card-header">
+        <h5 class="card-title">Edit Node</h5>
+        <a asp-action="List" class="btn btn-secondary float-right">
+            <i class="fa fa-arrow-left"></i> Back to List
+        </a>
+    </div>
+    <div class="card-body">
+        <form asp-action="Edit" method="post" asp-controller="Nodes">
+            <div class="form-group row mb-3">
+                <div class="col-sm-10">
+                    <input asp-for="NodeId" class="form-control" hidden />
+                    <span asp-validation-for="NodeId" class="text-danger" hidden></span>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <label for="NodeName" class="col-sm-2 col-form-label">Node Name</label>
+                <div class="col-sm-10">
+                    <input asp-for="NodeName" class="form-control" />
+                    <span asp-validation-for="NodeName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <label for="ParentNodeId" class="col-sm-2 col-form-label">Parent Node</label>
+                <div class="col-sm-10">
+                    <select asp-for="ParentNodeId" class="form-control" asp-items="ViewBag.NodeNames">
+                        <option value="">Select Parent Node</option>
+                    </select>
+                    <span asp-validation-for="ParentNodeId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row mb-3">
+                <label for="IsActive" class="col-sm-2 col-form-label">Is Active</label>
+                <div class="col-sm-10">
+                    <input asp-for="IsActive" class="form-check-input" />
+                    <span asp-validation-for="IsActive" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10 offset-sm-2">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

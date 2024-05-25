@@ -1,0 +1,14 @@
+﻿@model NodeViewModel
+
+<li>
+    <span class="caret">@Model.NodeName</span>
+    @if (Model.Children.Any())
+    {
+        <ul class="nested">
+            @foreach (var child in Model.Children)
+            {
+                @await Html.PartialAsync("_TreeNode", child)
+            }
+        </ul>
+    }
+</li>
